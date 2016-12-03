@@ -1,5 +1,5 @@
 # BrowserHomePage
-PHP based program idea for a Home Page of a Browser.
+A program idea for a Home Page of a Browser.
 Options as of now: Jumble solver, Movie Details, News.
 
 Detailed Description of each options given:
