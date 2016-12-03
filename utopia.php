@@ -21,7 +21,8 @@
 </head>
 
  <?php
-
+$errno = NULL;
+$errstr = NULL;
 if ( @fopen("https://www.google.com", "r") )
 {
   //error handler function
@@ -52,7 +53,6 @@ function test_input($data) {
 }
 ?>
 
-<?php ob_start(); ?>
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-12">
@@ -61,7 +61,7 @@ function test_input($data) {
 </div>
 
 <div class="container">
-
+<?php ob_start(); ?>
 
 <!--<div class="horizonatlLine">
 <div class="row">
@@ -117,9 +117,9 @@ function test_input($data) {
                        Help</button>
                        <div class="collapse" id="collapseExample1">
                         <div class="card card-block">
-                          Copy the path to the folder where you have saved all your movies,
-                          'For eg: /home/movies' and Paste it here. And we will dispaly the
-                          details of all the movies present in that folder in tabular format.
+                          Copy & Paste the path to the folder where you have saved all your movies,
+                          'For eg: /home/movies'. And we will dispaly the details of all the movies
+                           present in it in tabular format.
                         </div>
                         </div>
                       </center>
@@ -355,12 +355,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sdir = $path;
         unset($_POST['sort']);
         unset($_POST['path']);
-
-
-        //place this before any script you want to calculate time
-        $time_start = microtime(true);
-
-        // your script code goes here
         ?>
 
         <!DOCTYPE html>
@@ -376,44 +370,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <link href="bootstrap.css" rel="stylesheet">
 
         <?php
-        //session_start();
-
-        /*error handler function
-        function customError($errno, $errstr) {
-          echo "<b>Error:</b> [$errno] $errstr";
-          echo "<br>";
-        }
-        */
-        //set error handler
-        //set_error_handler("customError");
-
-        //trigger error
 
         //link for the directory of movies
         ini_set('max_execution_time', 2400);
         ini_set('user_agent','Mozilla/4.0(compatible;MSIE 6.0)');
         //from html form
         ?>
-        <div class="error">
         <?php
-        //$sdir = "C:/Users/Mazu/Videos/new";
 
-
-        /*if ($sdir==NULL) {
-          ?>
-        <a href="http://localhost/MovieSort/index.php" class="button, html input[type=button], input[type=reset], input[type=submit]"><h6>C</h6></a></td>
-          <?php trigger_error("Path is missing :( ");
-          echo "Click ";
-            ?><a href="http://localhost/MovieSort/index.php" class="button, html input[type=button], input[type=reset], input[type=submit]"><h6> here </h6></a></td>
-        <?php
-        echo "to enter path again!";
-        }
-        */
-        ?>
-
-        </div>
-        <?php
-        $movienrating = array();
         //direct assignment
         //$sdir="C:\Mazahir\movie";
         ?>
@@ -422,6 +386,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <center>
           <h1> The List </h1>
           </center>
+        <div class="jumbotron">
         <table id="test" border="1" style="margin-left:12px;margin-right:12px;">
 
          <tr>
@@ -564,10 +529,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //fwrite($myfile, $name);
         //fwrite($myfile, "\r\n");
         $name77=$name;
-
-
-        $current = array($rating => $name);
-        $movienrating = array_merge($movienrating, $current);
         ?>
         <!--12
         $buffer=substr($buffer,1,12);-->
@@ -733,45 +694,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         listFolderFiles($sdir);
         ?></table>
-        <center>
-          Sorted Based on Rating
-        </center>
-        <center>
-        <table>
-        <tr>
-          <th> Rating </th>
-          <th> Name </th>
-        </tr>
-        <tr>
-          <?php
-        krsort($movienrating);
-        foreach ($movienrating as $key => $value) {
-            echo "<td>".$key."</td>";
-            echo "<td>".$value."</td></tr>";
-        }
-        ?>
-      </table>
-      </center>
-      <br>
       <br>
         <center>
         <table>
         <tr><td><a href="utopia.php"><button>Back</button></a></td></tr>
         </table>
       </center>
-
+</div>
         </body>
         </html>
-        <?php
-        // Display Script End time
-        $time_end = microtime(true);
-
-        //dividing with 60 will give the execution time in minutes other wise seconds
-        $execution_time = ($time_end - $time_start)/60;
-
-        //execution time of the script
-        //echo '<b>Total Execution Time:</b> '.$execution_time.' Mins';
-
+      <?php
 }
 
 if(isset($_POST['jumbled'])) {
@@ -800,8 +732,6 @@ if(isset($_POST['jumbled'])) {
 </head>
 <body>
 
-    <!--  <div class="jumbotron">
-    <div class="impetus">-->
     <div class="container">
       <div class="row">
         <div class="col-md-4">
@@ -948,39 +878,31 @@ if(isset($_POST['jumbled'])) {
      <link href="bootstrap.css" rel="stylesheet">
 
  <?php
-
- //trigger error
-
- //link for the directory of movies
  ini_set('max_execution_time', 2400);
  ini_set('user_agent','Mozilla/4.0(compatible;MSIE 6.0)');
-
- //from html form
- ?>
- <div class="error">
-
- </div>
+?>
 
  <center>
  <h1> The List </h1>
  </center>
- <div class="jumbotron">
- <table id="test" border="1" style="margin-left:12px;margin-right:12px;">
+<div class="jumbotron">
+<table id="test" border="1" style="margin-left:12px;margin-right:12px;">
 
-  <tr>
-    <th>Name</th>
-    <th>Genre</th>
-    <th>Director</th>
-    <th>Writer</th>
-    <th>Rating</th>
-    <th>Cast</th>
-    <th>Description</th>
-    <th>Release Date</th>
-  </tr>
+<tr>
+  <th>Rating</th>
+  <th>Name</th>
+  <th>Genre</th>
+  <th>Director</th>
+  <th>Writer</th>
+  <th>Cast</th>
+  <th>Description</th>
+  <th>Release Date</th>
+</tr>
 
 
  <?php
 $movienrating1 = array();
+ $list1=str_replace(" ","",$list1);
  $list = explode("++", $list1);
  $len = count($list);
  for($i=0; $i<$len; $i++){
@@ -1020,13 +942,26 @@ $movienrating1 = array();
  ?>
  <tr>
 
+   <?php
+   //fwrite($myfile, "\r\n");
+
+   //scraping the rating from imdb website
+   //fwrite($myfile,'Rating : ');
+   foreach($html->find('span.itemprop[itemprop=ratingValue]') as $e){
+   $rating = $e->innertext;
+   }
+   foreach($html->find('span.itemprop[itemprop=ratingCount]') as $e){
+   $rating1 = $e->innertext;
+   }
+   //fwrite($myfile, $rating);
+   $rating77=$rating;
+   ?>
+
+   <td><?php echo $rating."/10 out of ".$rating1." votes" ?></td>
+
+
+
  <?php
- //if there is folder then add a details.txt there
- //$myfile = fopen('C:/Users/user/Videos/Movies/Yet/' .$file1. '/Details.txt', "ab") or die("Unable to open file!");
-
- //else add in the main folder along with video file with same name
- //$myfile = fopen('C:\Users\Mazu\Videos\Movies\Movie '.$filename.'.txt', "a") or die("Unable to open file!");
-
  //scraping the name from imdb website
  //fwrite($myfile,'Name : ');
  foreach($html->find('h1[itemprop=name]') as $e)
@@ -1036,6 +971,8 @@ $movienrating1 = array();
  //fwrite($myfile, $name);
  //fwrite($myfile, "\r\n");
  $name77=$name;
+ $current = array($rating => $name);
+ $movienrating1 = array_merge($movienrating, $current);
  ?>
  <!--12
  $buffer=substr($buffer,1,12);-->
@@ -1116,24 +1053,6 @@ $movienrating1 = array();
 
  <td><?php echo $writer ?></td>
 
- <?php
- //fwrite($myfile, "\r\n");
-
- //scraping the rating from imdb website
- //fwrite($myfile,'Rating : ');
- foreach($html->find('span.itemprop[itemprop=ratingValue]') as $e){
- $rating = $e->innertext;
- }
- foreach($html->find('span.itemprop[itemprop=ratingCount]') as $e){
- $rating1 = $e->innertext;
- }
- //fwrite($myfile, $rating);
- $rating77=$rating;
- $current = array($rating => $name);
- $movienrating1 = array_merge($movienrating1, $current);
- ?>
-
- <td><?php echo $rating."/10 out of ".$rating1." votes" ?></td>
 
  <?php
 
@@ -1210,16 +1129,12 @@ $movienrating1 = array();
  }
  }
  ?></table>
-
-<br>
-<hr>
-<br>
+ ?></table>
  <center>
-   <h1>Sorted Based on Rating<h1>
+   Sorted Based on Rating
  </center>
- <br>
  <center>
- <table id="test" border="1" style="margin-left:12px;margin-right:12px;">
+ <table>
  <tr>
    <th> Rating </th>
    <th> Name </th>
@@ -1231,25 +1146,20 @@ $movienrating1 = array();
      echo "<td>".$key."</td>";
      echo "<td>".$value."</td></tr>";
  }
-
  ?>
 </table>
+</center>
+<br>
+<br>
+ <center>
  <table>
  <tr><td><a href="utopia.php"><button>Back</button></a></td></tr>
  </table>
- </center>
+</center>
+</div>
  </body>
  </html>
- <?php
- // Display Script End time
- $time_end = microtime(true);
-
- //dividing with 60 will give the execution time in minutes other wise seconds
- $execution_time = ($time_end - $time_start)/60;
-
- //execution time of the script
- //echo '<b>Total Execution Time:</b> '.$execution_time.' Mins';
-
+<?php
 }
 
  }
